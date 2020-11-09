@@ -1,23 +1,28 @@
 package org.launchcode.javawebdevtechjobspersistent.models;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Employer extends AbstractEntity { //has id and name inherited from abstr
 
-    @NotNull(message="Location is required")
+    @NotBlank(message="Location is required")
     private String location;
 
-    @OneToMany(mappedBy = "employer") // must be name of the ManyToOne
-    private final List<Job> jobs = new ArrayList<>(); // dont add to constr bc created in field declaration
+
+    @OneToMany
+    @JoinColumn(name="employer_id")
+    private List<Job> jobs = new ArrayList<>(); // dont add to constr bc created in field declaration
 
 
-    public Employer() {}
+    public Employer() { }
 
     public String getLocation() {
         return location;
@@ -29,6 +34,10 @@ public class Employer extends AbstractEntity { //has id and name inherited from 
 
     public List<Job> getJobs() {
         return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
     }
 
 
