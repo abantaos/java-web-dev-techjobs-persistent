@@ -20,3 +20,8 @@ DROP TABLE job;
 
 ## Part 4: Test it with SQL
 
+SELECT skill.name, skill.description
+from skill
+left join job_skills on skill.id = job_skills.skills_id
+where job_skills.skills_id IS NOT NULL
+ORDER BY NAME ASC;
